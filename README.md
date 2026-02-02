@@ -10,7 +10,7 @@ This is a simple command-line tool to check references in a given PDF. The tool 
     - The paper title matches the record in DBLP.
     - The author list has at least one overlapping last name.
 - If no match is found, the reference is reported `not found` and a list is printed in the console of all the papers that were not found.
-- The results are also logged in a `reference_check/filename.log` file for later inspection.
+- In case of batch mode, the results are also logged in a `reference_check/filename.log` file for later inspection.
 
 ## What should I do with this?
 The script is expected to give false negatives. A **negative** is considered a reference that is **not found** in DBLP. That means **you have to check the flagged references yourself**.
@@ -40,7 +40,7 @@ python reference_check.py https://path_to_pdf.org/file.pdf
 ```bash
 # Input a path to a folder and process each PDF file in the folder.
 python reference_check.py /path/to/folder
-# Input the path to a txt file with PDF urls. The txt file should have a single 
+# Input the path to a txt file with PDF urls. The txt file should have a single url per line.
 python reference_check.py url_list.txt
 ```
 

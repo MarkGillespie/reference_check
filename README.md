@@ -45,10 +45,36 @@ python reference_check.py url_list.txt
 ```
 
 ### Output
-The results are printed in the console and logged in a `reference_check/filename.log` file for later inspection.
+The results are printed in the console and logged in a `reference_check/filename.log` file for batch mode for later inspection.
+
+Example output on one of my own papers (https://rubenwiersma.nl/assets/pdf/DeltaConv.pdf), showing only a few records. No LLMs were used in the writing of the paper (it was published before ChatGPT was released). Therefore, **you cannot conclude LLM-usage when mismatches show up**. You have to check the flags manually.
+```
+Checking Submission SingleCheck: Manual Run
+URL: https://rubenwiersma.nl/assets/pdf/DeltaConv.pdf
+============================================================
+Downloading PDF from https://rubenwiersma.nl/assets/pdf/DeltaConv.pdf...
+Parsing PDF content...
+Extracted 86 references.
+Verifying references against DBLP...
+ID    Status     Details
+------------------------------------------------------------
+[ref_1] OK         Detected: Point convolutional neural net... (Query: DBLP: Point convolutional neural networks by extension operators Atzmon Maron Lipman Matan Haggai Yaron)
+[ref_2] not found  Queries tried: DBLP: 3DmFV: ThreeDimensional Point Cloud Classification in Real-Time Using Convolutional Neural Networks Ben-Shabat Lindenbaum Fischer
+
+[...]
+
+Found 8 references that could not be matched to DBLP:
+
+[ref_2] Yizhak Ben-Shabat, Michael Lindenbaum, Anath Fischer. 2018. 3DmFV: ThreeDimensional Point Cloud Classification in Real-Time Using Convolutional Neural Networks.
+Queries tried: DBLP: 3DmFV: ThreeDimensional Point Cloud Classification in Real-Time Using Convolutional Neural Networks Ben-Shabat Lindenbaum Fischer
+
+[...]
+```
+
 
 ## Known issues
 Most issues are due to incorrect PDF parsing. This can be fixed by parsing a .bbl file directly and I found it unnecessary to layer extra complexity on top of the script to account for these errors. Feel free to open a pull request if you find a good fix.
+- [DBLP allows scraping](https://dblp.org/faq/1474706.html), but does have a rate limit. This means the script sometimes pauses when it gets a `429` response. This is expected.
 - A paper that uses the numbered citation system (`[1] Author names`) can lead to incorrect parsing.
 - The script removes dashes from the title to account for line-breaks. This may remove dashes that should be present, leading to false negatives.
 - Special characters in author names may not be matched in DBLP.

@@ -1,5 +1,5 @@
 # PDF Reference validity checker
-This is a simple command-line tool to check references in a given PDF. The tool was scripted with VSCode and Gemini 3 Pro and proofread by me.
+This is a simple command-line tool to check references in a given PDF. The tool was scripted with VSCode and Gemini 3 Pro and proofread and tested by me.
 
 ## What does it do?
 - Loads an input PDF (locally)
@@ -30,7 +30,7 @@ python reference_check.py /path/to/pdf/file.pdf
 ```
 There are other input modes for loading files from a url or in batch mode: 
 
-### From URL
+### URL
 ```bash
 # Downloads the PDF, processes it and deletes it afterward
 python reference_check.py https://path_to_pdf.org/file.pdf
@@ -46,3 +46,10 @@ python reference_check.py url_list.txt
 
 ### Output
 The results are printed in the console and logged in a `reference_check/filename.log` file for later inspection.
+
+## Known issues
+Most issues are due to incorrect PDF parsing. This can be fixed by parsing a .bbl file directly and I found it unnecessary to layer extra complexity on top of the script to account for these errors. Feel free to open a pull request if you find a good fix.
+- A paper that uses the numbered citation system (`[1] Author names`) can lead to incorrect parsing.
+- The script removes dashes from the title to account for line-breaks. This may remove dashes that should be present, leading to false negatives.
+- Special characters in author names may not be matched in DBLP.
+- Quotes are not parsed correctly for DBLP.

@@ -24,17 +24,19 @@ pip install pypdf requests
 ```
 
 ## Running the tool
-You can run the tool on PDFs with three input modes:
-### PDF url/path
-Input a path or url (starting with http...) to a `.pdf` file.
-```bash
-# Loads the PDF from disk
+You can run the tool on a single file with:
+```bash 
 python reference_check.py /path/to/pdf/file.pdf
+```
+There are other input modes for loading files from a url or in batch mode: 
+
+### From URL
+```bash
 # Downloads the PDF, processes it and deletes it afterward
 python reference_check.py https://path_to_pdf.org/file.pdf
 ```
 
-### Batch process
+### Batch processing
 ```bash
 # Input a path to a folder and process each PDF file in the folder.
 python reference_check.py /path/to/folder
